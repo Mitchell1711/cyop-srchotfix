@@ -98,6 +98,7 @@ function src_selectdebugoption(argument0) //gml_Script_src_selectdebugoption
                 break
             case 1:
                 global.showcollisions = (!global.showcollisions)
+                global.updateshowcollisions = global.showcollisions
                 break
             case 2:
                 global.editorpause = (!global.editorpause)
