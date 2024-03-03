@@ -12,7 +12,7 @@ function createsavestate() //gml_Script_createsavestate
         array_push(instmanagerids, struct_get(global.instanceManager, instmanagernames[i]))
     with (all)
     {
-        if (object_index != obj_levelLoader || object_index != obj_editorpractice || object_index != obj_music || object_index != obj_customAudio)
+        if (object_index != obj_editorpractice || object_index != obj_music || object_index != obj_customAudio)
         {
             //retrieve the current state of all variables attached to loaded objects
             var varnames = variable_instance_get_names(id)
@@ -51,43 +51,38 @@ function createsavestate() //gml_Script_createsavestate
     //get all globals, saveroom, baddieroom and escaperoom need to be tracked seperately as I want to modify them again after load
     varnames = variable_instance_get_names(-5)
     var globals = []
-    var saveroom = []
-    var baddieroom = []
-    var escaperoom = []
     for (i = 0; i < array_length(varnames); i++)
     {
-        if (varnames[i] != "paused" || varnames[i] != "savestates" || varnames[i] != "instanceManager")
+        if (varnames[i] != "paused" || varnames[i] != "savestates")
         {
             var value = variable_global_get(varnames[i])
             //global ds lists needs to have their contents dumped into an array
             if (is_real(value) && ds_exists(value, 2))
             {
                 var ds = []
-                for (var j = 0; j < ds_list_size(value); j++)
-                    array_push(ds, ds_list_find_value(value, j))
-                //put room lists in their unique array
-                switch varnames[i]
-                {
-                    case "saveroom":
-                        saveroom = ds
-                        break
-                    case "baddieroom":
-                        baddieroom = ds
-                        break
-                    case "escaperoom":
-                        escaperoom = ds
-                        break
-                    default:
-                        array_push(globals, [varnames[i], value, ds, 2])
+                //fill the room arrays with the custom object ids
+                if(varnames[i] == "saveroom" || varnames[i] == "baddieroom" || varnames[i] == "escaperoom"){
+                    for(var j = 0; j < ds_list_size(value); j++){
+                        var objectroomid = ds_list_find_value(value, j)
+                        for(var k = 0; k < array_length(instmanagernames); k++){
+                            if(objectroomid == instmanagerids[k]){
+                                array_push(ds, instmanagernames[k])
+                            }
+                        }
+                    }
                 }
-
+                else{
+                    for (var j = 0; j < ds_list_size(value); j++)
+                        array_push(ds, ds_list_find_value(value, j))
+                }
+                array_push(globals, [varnames[i], value, ds, 2])
             }
             //if the variable is not a list just write it normally
             else
                 array_push(globals, [varnames[i], value])
         }
     }
+    savestates[saveslot] = [objects, customobjects, globals]
     create_transformation_tip("Saved State")
-    global.savestates[saveslot] = [objects, customobjects, globals, saveroom, baddieroom, escaperoom]
 }
 

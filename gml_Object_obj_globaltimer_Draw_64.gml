@@ -52,6 +52,12 @@ if global.editingLevel
     draw_text(8, (str_offset - (char_height * 4)), concat("X: ", Px))
     draw_text(156, (str_offset - (char_height * 4)), concat("Y: ", Py))
     draw_text(8, (str_offset - (char_height * 5)), concat("ROOM: ", string_upper(global.currentRoom)))
+    //debug code that shows all the objects in the room
+    /*var objs = []
+    draw_set_font(font1)
+    with (all)
+        array_push(objs, concat(object_get_name(object_index), " "))
+    draw_text_ext(8, (str_offset - (char_height * 6)), string(objs), char_height, obj_screensizer.actual_width)*/
 }
 //create the timer string text, argument2 decides whether to draw hours or not
 function src_create_string(argument0, argument1, argument2) //gml_Script_src_create_string
