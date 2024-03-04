@@ -1,4 +1,8 @@
 scr_getinput_practice()
+//wipe savestates if another mod has been opened
+if(savedmodfolder != global.modFolder){
+    savestates = array_create(12, [])
+}
 loadorsave = (slot1 || slot2 || slot3 || slot4 || slot5 || slot6 || slot7 || slot8 || slot9 || slot0)
 if slot1
     saveslot = 1

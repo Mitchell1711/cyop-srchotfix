@@ -28,7 +28,8 @@ if global.editingLevel
     var jText = file_text_read_all(fName)
     global.roomData = json_parse(jText)
     global.roomData = gml_Script_data_compatibility(global.roomData)
-    gml_Script_prepareCustomLevel(global.roomData, global.editorRoomName)
+    //replace gml_Script_prepareCustomLevel function with load_customlevel from src_room_goto
+    load_customlevel(global.roomData, global.editorRoomName)
 }
 else
 {

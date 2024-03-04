@@ -35,13 +35,13 @@ function loadstate() //gml_Script_loadstate
         }
     }
     //(re)load the room with the reverted roomdata/currentroom
-    gml_Script_prepareCustomLevel(global.roomData, global.currentRoom)
+    load_customlevel(global.roomData, global.currentRoom)
     //3 frame delay for loading objects because cyop is slow, needs 2 frames to instantiate the objects and 1 frame to instantiate hitboxes
     alarm[0] = 3
 }
 
 //called in this script and alarm[0]
-function loadstatevariables(argument0, argument1) //gml_Script_loadstatevariables
+function loadstatevariables(argument0) //gml_Script_loadstatevariables
 {
     //go over all saved objects
     for (var i = 0; i < array_length(argument0); i++)

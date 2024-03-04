@@ -1,6 +1,7 @@
 function createsavestate() //gml_Script_createsavestate
 {
     doingstatestuff = true
+    savedmodfolder = global.modFolder
     //standard objects (ones that persist through the custom level scene) and custom objects (objects loaded from the room json) are seperated for convenience
     var objects = []
     var customobjects = []
@@ -11,6 +12,7 @@ function createsavestate() //gml_Script_createsavestate
         array_push(instmanagerids, struct_get(global.instanceManager, instmanagernames[i]))
     with (all)
     {
+        dontdestroyonload = true
         if (object_index != obj_editorpractice || object_index != obj_music || object_index != obj_customAudio)
         {
             //retrieve the current state of all variables attached to loaded objects
@@ -52,7 +54,7 @@ function createsavestate() //gml_Script_createsavestate
     var globals = []
     for (i = 0; i < array_length(varnames); i++)
     {
-        if (varnames[i] != "paused")
+        if (varnames[i] != "paused" || varnames[i] != "instanceManager")
         {
             var value = variable_global_get(varnames[i])
             //global ds lists needs to have their contents dumped into an array
@@ -63,11 +65,14 @@ function createsavestate() //gml_Script_createsavestate
                 //using variable global get because directly comparing the string to varnames[i] randomly doesnt work
                 if (value == variable_global_get("baddieroom") 
                 || value == variable_global_get("escaperoom") 
-                || value == variable_global_get("saveroom"))
-                    for(var j = 0; j < ds_list_size(value); j++){
+                || value == variable_global_get("saveroom")){
+                    for(var j = 0; j < ds_list_size(value); j++)
+                    {
                         var objectroomid = ds_list_find_value(value, j)
-                        for(var k = 0; k < array_length(instmanagernames); k++){
-                            if(objectroomid == instmanagerids[k]){
+                        for(var k = 0; k < array_length(instmanagernames); k++)
+                        {
+                            if(objectroomid == instmanagerids[k])
+                            {
                                 array_push(ds, instmanagernames[k])
                             }
                         }
@@ -89,4 +94,3 @@ function createsavestate() //gml_Script_createsavestate
         create_transformation_tip("Saved state to slot "+string(saveslot))
     doingstatestuff = false
 }
-
