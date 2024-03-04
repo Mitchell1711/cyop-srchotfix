@@ -9,6 +9,7 @@ function loadstate() //gml_Script_loadstate
             create_transformation_tip("Failed to load room state")
         break
     }
+    doingstatestuff = true
     for (var i = 0; i < array_length(save[2]); i++)
     {
         
@@ -20,7 +21,8 @@ function loadstate() //gml_Script_loadstate
         {
             ds_list_clear(glob[1])
             //if the array is a room convert the string object references back to the correct object ids
-            if(glob[0] == "saveroom" || glob[0] == "baddieroom" || glob[0] == "escaperoom"){
+            //18 is the saveroom id because i cant access it by just using the string name im losing my mind
+            if (glob[0] == "baddieroom" || glob[0] == "escaperoom" || glob[1] == 18){
                 for (var j = 0; j < array_length(glob[2]); j++){
                     ds_list_add(glob[1], struct_get(global.instanceManager, glob[2][j]))
                 }

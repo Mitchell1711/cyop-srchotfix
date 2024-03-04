@@ -9,6 +9,7 @@ scr_init_input_practice()
 scr_initpracticeinput()
 savestates = array_create(12, [])
 saveslot = 0
+doingstatestuff = false
 //global variables to initialize for editor debug
 global.triggerdebug = 0
 global.doPanic = 0

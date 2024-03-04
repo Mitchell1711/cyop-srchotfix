@@ -4,3 +4,4 @@ loadstatevariables(save[0])
 loadstatevariables(save[1])
 if(saveslot < 10)
     create_transformation_tip("Loaded slot "+string(saveslot))
+doingstatestuff = false

@@ -1,5 +1,6 @@
 function createsavestate() //gml_Script_createsavestate
 {
+    doingstatestuff = true
     //standard objects (ones that persist through the custom level scene) and custom objects (objects loaded from the room json) are seperated for convenience
     var objects = []
     var customobjects = []
@@ -61,7 +62,8 @@ function createsavestate() //gml_Script_createsavestate
             {
                 var ds = []
                 //fill the room arrays with the custom object ids
-                if(varnames[i] == "saveroom" || varnames[i] == "baddieroom" || varnames[i] == "escaperoom"){
+                //18 is the ds list id of the saveroom because for god knows what reason i cant just use varnames
+                if (varnames[i] == "baddieroom" || varnames[i] == "escaperoom" || value == 18){
                     for(var j = 0; j < ds_list_size(value); j++){
                         var objectroomid = ds_list_find_value(value, j)
                         for(var k = 0; k < array_length(instmanagernames); k++){
@@ -85,5 +87,6 @@ function createsavestate() //gml_Script_createsavestate
     savestates[saveslot] = [objects, customobjects, globals]
     if(saveslot < 10)
         create_transformation_tip("Saved state to slot "+string(saveslot))
+    doingstatestuff = false
 }
 

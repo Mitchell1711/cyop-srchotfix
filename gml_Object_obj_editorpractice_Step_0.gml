@@ -27,15 +27,17 @@ if global.triggerdebug
 }
 if keyboard_check_pressed(vk_f1)
     global.setspeed = obj_player1.hsp
-if loadorsave
-{
-    if savestate
-        createsavestate()
-    else
+if (!doingstatestuff){
+    if loadorsave
+    {
+        if savestate
+            createsavestate()
+        else
+            loadstate()
+    }
+    if reload_room
+    {
+        saveslot = 10
         loadstate()
-}
-if reload_room
-{
-    saveslot = 10
-    loadstate()
+    }
 }
