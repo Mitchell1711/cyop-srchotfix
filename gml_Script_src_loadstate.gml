@@ -59,7 +59,10 @@ function loadstatevariables(argument0) //gml_Script_loadstatevariables
                 y = obj[3]
                 image_speed = obj[4]
                 image_index = obj[5]
-                sprite_index = obj[6]
+                //cyop objects can have their sprites changed to a custom one from the mod folder
+                //this causes issues specifically when trying to load another level from the same tower
+                if sprite_exists(obj[6])
+                    sprite_index = obj[6]
                 image_xscale = obj[9]
                 image_yscale = obj[10]
                 for (var j = 0; j < array_length(obj[7]); j++){
