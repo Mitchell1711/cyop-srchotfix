@@ -1,6 +1,6 @@
 function createsavestate() //gml_Script_createsavestate
 {
-    //standard objects (ones that persist through the custom level scene) and custom objects (objects loaded from the room json) need to be seperate as they're instantiated at different points
+    //standard objects (ones that persist through the custom level scene) and custom objects (objects loaded from the room json) are seperated for convenience
     var objects = []
     var customobjects = []
     //prevent the player from being put at a warp indicator
@@ -53,7 +53,7 @@ function createsavestate() //gml_Script_createsavestate
     var globals = []
     for (i = 0; i < array_length(varnames); i++)
     {
-        if (varnames[i] != "paused" || varnames[i] != "savestates")
+        if (varnames[i] != "paused")
         {
             var value = variable_global_get(varnames[i])
             //global ds lists needs to have their contents dumped into an array
@@ -83,6 +83,7 @@ function createsavestate() //gml_Script_createsavestate
         }
     }
     savestates[saveslot] = [objects, customobjects, globals]
-    create_transformation_tip("Saved State")
+    if(saveslot < 10)
+        create_transformation_tip("Saved state to slot "+string(saveslot))
 }
 

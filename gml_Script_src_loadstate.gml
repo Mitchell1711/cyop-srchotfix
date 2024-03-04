@@ -2,6 +2,13 @@ function loadstate() //gml_Script_loadstate
 {
     //retrieve globals first, important since I want to update the roomdata and currentroom to what it was during saving so I can load the right one
     var save = savestates[saveslot]
+    if(array_length(save) == 0){
+        if(saveslot < 10)
+            create_transformation_tip("Failed to load slot "+string(saveslot))
+        else
+            create_transformation_tip("Failed to load room state")
+        break
+    }
     for (var i = 0; i < array_length(save[2]); i++)
     {
         
@@ -52,8 +59,12 @@ function loadstatevariables(argument0, argument1) //gml_Script_loadstatevariable
                 sprite_index = obj[6]
                 image_xscale = obj[9]
                 image_yscale = obj[10]
-                for (var j = 0; j < array_length(obj[7]); j++)
-                    variable_instance_set(id, obj[7][j][0], obj[7][j][1])
+                for (var j = 0; j < array_length(obj[7]); j++){
+                    //don't replace the oneway block solid instance ref since it gets remade on load
+                    if(obj[7][j][0] != "solid_inst"){
+                        variable_instance_set(id, obj[7][j][0], obj[7][j][1])
+                    }
+                }
                 for (j = 0; j < array_length(obj[8]); j++)
                     alarm[j] = obj[8][j]
             }
