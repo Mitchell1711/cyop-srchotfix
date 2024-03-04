@@ -62,8 +62,9 @@ function createsavestate() //gml_Script_createsavestate
             {
                 var ds = []
                 //fill the room arrays with the custom object ids
-                //18 is the ds list id of the saveroom because for god knows what reason i cant just use varnames
-                if (varnames[i] == "baddieroom" || varnames[i] == "escaperoom" || value == 18){
+                //7 is the enemyroom id, 4 is the escaperoom id and 18 is the saveroom id
+                //using the varnames and comparing it to the string variable name seems to just randomly not work i dont know why
+                if (value == 7 || value == 4 || value == 18){
                     for(var j = 0; j < ds_list_size(value); j++){
                         var objectroomid = ds_list_find_value(value, j)
                         for(var k = 0; k < array_length(instmanagernames); k++){
