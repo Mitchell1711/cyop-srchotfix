@@ -42,7 +42,10 @@ function createsavestate() //gml_Script_createsavestate
             variables, 
             alarms, 
             image_xscale, 
-            image_yscale]
+            image_yscale,
+            image_angle,
+            direction,
+            instance_number(object_index)]
             if is_string(obj_id)
                 array_push(customobjects, objectinfo)
             else
