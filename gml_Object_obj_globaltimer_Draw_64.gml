@@ -58,6 +58,15 @@ if global.editingLevel
     with (all)
         array_push(objs, concat(object_get_name(object_index), " "))
     draw_text_ext(8, (str_offset - (char_height * 6)), string(objs), char_height, obj_screensizer.actual_width)*/
+    //debug code that shows all objects in saveroom
+    /*var objs = []
+    draw_set_font(font1)
+    for(var i = 0; i < ds_list_size(global.saveroom); i++){
+        array_push(objs, concat(ds_list_find_value(global.saveroom, i), " "))
+    }
+    draw_text_ext(8, (str_offset - (char_height * 6)), string(objs), char_height, obj_screensizer.actual_width)*/
+    //debug code that draws the contents of the instanceManager
+    //draw_text_ext(8, (str_offset - (char_height * 7)), json_stringify(global.instanceManager, 1), char_height, obj_screensizer.actual_widthx)
 }
 //create the timer string text, argument2 decides whether to draw hours or not
 function src_create_string(argument0, argument1, argument2) //gml_Script_src_create_string

@@ -44,4 +44,8 @@ if (!doingstatestuff){
         saveslot = 10
         loadstate()
     }
+    if last_room {
+        saveslot = 11
+        loadstate()
+    }
 }

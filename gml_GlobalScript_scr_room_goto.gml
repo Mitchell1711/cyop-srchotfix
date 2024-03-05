@@ -11,7 +11,8 @@ this was supposed to make it so all forms of room loading would create a savesta
 but it only works on the fadeout for some reason*/
 function load_customlevel(argument0, argument1) //gml_Script_load_customlevel
 {
-    with (obj_editorpractice)
-        alarm[1] = 3
     gml_Script_prepareCustomLevel(argument0, argument1)
+    with (obj_editorpractice){
+        alarm[1] = 3
+    }
 }

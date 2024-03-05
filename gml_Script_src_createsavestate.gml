@@ -64,19 +64,21 @@ function createsavestate() //gml_Script_createsavestate
             if (is_real(value) && ds_exists(value, 2))
             {
                 var ds = []
+                
                 //fill the room arrays with the custom object ids
                 //using variable global get because directly comparing the string to varnames[i] randomly doesnt work
                 if (value == variable_global_get("baddieroom") 
                 || value == variable_global_get("escaperoom") 
                 || value == variable_global_get("saveroom")){
-                    for(var j = 0; j < ds_list_size(value); j++)
+                    
+                    for(var j = 0; j < array_length(instmanagernames); j++)
                     {
-                        var objectroomid = ds_list_find_value(value, j)
-                        for(var k = 0; k < array_length(instmanagernames); k++)
+                        for(var k = 0; k < ds_list_size(value); k++)
                         {
-                            if(objectroomid == instmanagerids[k])
+                            var objectroomid = ds_list_find_value(value, k)
+                            if(objectroomid == instmanagerids[j])
                             {
-                                array_push(ds, instmanagernames[k])
+                                array_push(ds, instmanagernames[j])
                             }
                         }
                     }
