@@ -95,7 +95,7 @@ function src_selectDebugOption(argument0) //gml_Script_src_selectdebugoption
                 global.setSupertaunt = (!global.setSupertaunt)
                 break
             case 4:
-                global.setspeed = get_integer("Set the player's speed, this can also be set by pressing F1 while playing", global.setspeed)
+                global.setspeed = get_integer("Set the player's speed", global.setspeed)
                 if (global.setspeed == undefined)
                     global.setspeed = 0
                 break

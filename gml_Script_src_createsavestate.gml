@@ -57,7 +57,7 @@ function createsavestate() //gml_Script_createsavestate
     var globals = []
     for (i = 0; i < array_length(varnames); i++)
     {
-        if (varnames[i] != "paused" || varnames[i] != "instanceManager")
+        if (varnames[i] != "instanceManager")
         {
             var value = variable_global_get(varnames[i])
             //global ds lists needs to have their contents dumped into an array
@@ -71,16 +71,11 @@ function createsavestate() //gml_Script_createsavestate
                 || value == variable_global_get("escaperoom") 
                 || value == variable_global_get("saveroom")){
                     
-                    for(var j = 0; j < array_length(instmanagernames); j++)
+                    for (var j = 0; j < array_length(instmanagernames); j++)
                     {
-                        for(var k = 0; k < ds_list_size(value); k++)
-                        {
-                            var objectroomid = ds_list_find_value(value, k)
-                            if(objectroomid == instmanagerids[j])
-                            {
-                                array_push(ds, instmanagernames[j])
-                            }
-                        }
+                        var pos = ds_list_find_index(value, instmanagerids[j])
+                        if (pos != -1)
+                            array_push(ds, instmanagernames[j])
                     }
                 }
                 else{

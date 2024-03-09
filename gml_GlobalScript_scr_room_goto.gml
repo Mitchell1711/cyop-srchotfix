@@ -12,7 +12,9 @@ but it only works on the fadeout for some reason*/
 function load_customlevel(argument0, argument1) //gml_Script_load_customlevel
 {
     gml_Script_prepareCustomLevel(argument0, argument1)
-    with (obj_editorpractice){
-        alarm[1] = 3
+    if(global.editingLevel){
+        with (obj_editorpractice){
+            alarm[1] = 3
+        }
     }
 }

@@ -1,3 +1,6 @@
+if(!global.editingLevel){
+    return;
+}
 scr_getinput_practice()
 //wipe savestates if another mod has been opened
 if(savedmodfolder != global.modFolder){
@@ -29,9 +32,7 @@ if global.triggerdebug
     doEditorDebug()
     global.triggerdebug = 0
 }
-if keyboard_check_pressed(vk_f1)
-    global.setspeed = obj_player1.hsp
-if (!doingstatestuff){
+if ((!doingstatestuff) && (!obj_pause.pause)){
     if loadorsave
     {
         if savestate
