@@ -118,7 +118,12 @@ function src_debugButton() //gml_Script_src_debugbutton
     var bttnx = 820
     var bttny = 20
     var bttnsize = 96
-    var options = ["Enable Pizza Time", "Show Collisions", "Enable Editor Pause", "Give Supertaunt", "Set Player Speed", "Set Player State"]
+    var options = ["Enable Pizza Time", 
+    "Show Collisions", 
+    "Enable Editor Pause and Rank Screen", 
+    "Give Supertaunt", 
+    "Set Player Speed", 
+    "Set Player State"]
     var optioncolors = [global.doPanic, global.showcollisions, global.editorpause, global.setSupertaunt, 0, 0]
     //create the button itself
     select_debug = src_createButton(bttnx, bttny, bttnsize, 4198, select_debug)
@@ -132,7 +137,25 @@ function src_debugButton() //gml_Script_src_debugbutton
         if select_playerstate
         {
             //create transformation dropdown
-            options = ["Normal", "Knight", "Ball", "Firemouth", "Ghost", "Mort", "Weenie Mount", "Revolver", "Barrel", "Gustavo and Brick", "Gustavo", "Rocket", "Olive Bubble", "Cheeseball", "Sticky Cheese", "Boxed", "Pepper Pizza", "Shotgun", "Clown"]
+            options = ["Normal", 
+            "Knight", 
+            "Ball", 
+            "Firemouth", 
+            "Ghost", 
+            "Mort", 
+            "Weenie Mount", 
+            "Revolver", 
+            "Barrel", 
+            "Gustavo and Brick", 
+            "Gustavo", 
+            "Rocket", 
+            "Olive Bubble", 
+            "Cheeseball", 
+            "Sticky Cheese", 
+            "Boxed", 
+            "Pepper Pizza", 
+            "Shotgun", 
+            "Clown"]
             var transformationcolors = []
             for (var i = 0; i < array_length(options); i++)
                 array_push(transformationcolors, options[i] == global.editortransformation)
