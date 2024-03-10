@@ -34,6 +34,8 @@ function loadstate() //gml_Script_loadstate
             }
         }
     }
+    //save spaceblock state since the spaceblock resets the global variable in its create code
+    spaceblockstate = global.spaceblockswitch
     //(re)load the room with the reverted roomdata/currentroom
     load_customlevel(global.roomData, global.currentRoom)
     //3 frame delay for loading objects because cyop is slow, needs 2 frames to instantiate the objects and 1 frame to instantiate hitboxes

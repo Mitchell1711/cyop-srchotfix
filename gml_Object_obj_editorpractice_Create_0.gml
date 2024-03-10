@@ -10,6 +10,7 @@ scr_initpracticeinput()
 savestates = array_create(12, [])
 saveslot = 0
 doingstatestuff = false
+spaceblockstate = 0
 savedmodfolder = global.modFolder
 //global variables to initialize for editor debug
 global.triggerdebug = 0

@@ -13,8 +13,9 @@ function createsavestate() //gml_Script_createsavestate
     with (all)
     {
         dontdestroyonload = true
-        if (object_index != obj_editorpractice || object_index != obj_music || object_index != obj_customAudio)
-        {
+        if (object_index != obj_editorpractice && object_index != obj_music 
+        && object_index != obj_customAudio && object_index != obj_levelLoader 
+        && object_index != obj_customBG && object_index != obj_tilemapDrawer && object_index != obj_modAssets)
             //retrieve the current state of all variables attached to loaded objects
             var varnames = variable_instance_get_names(id)
             var variables = array_create(array_length(varnames))
@@ -44,8 +45,7 @@ function createsavestate() //gml_Script_createsavestate
             image_xscale, 
             image_yscale,
             image_angle,
-            direction,
-            instance_number(object_index)]
+            direction]
             if is_string(obj_id)
                 array_push(customobjects, objectinfo)
             else

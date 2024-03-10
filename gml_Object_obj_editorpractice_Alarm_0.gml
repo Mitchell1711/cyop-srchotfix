@@ -9,6 +9,7 @@ with(all){
         instance_destroy()
     }
 }
+global.spaceblockswitch = spaceblockstate
 if(saveslot < 10)
     create_transformation_tip("Loaded slot "+string(saveslot))
 doingstatestuff = false
