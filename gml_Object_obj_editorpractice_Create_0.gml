@@ -19,4 +19,5 @@ global.showcollisions = 0
 global.editorpause = 0
 global.setSupertaunt = 0
 global.editortransformation = "Normal"
+global.opensaveslot = "None"
 global.setspeed = 0

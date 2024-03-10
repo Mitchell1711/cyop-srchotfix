@@ -5,8 +5,10 @@ pop.v.i self.select_debug
 pushi.e 0
 pop.v.i self.select_playerstate
 pushi.e 0
-pop.v.i self.statelistX
+pop.v.i self.select_savestate
 pushi.e 0
-pop.v.i self.statelistY
+pop.v.i self.mouseposX
+pushi.e 0
+pop.v.i self.mouseposY
 pushi.e 0
 pop.v.i self.hover_custombutton

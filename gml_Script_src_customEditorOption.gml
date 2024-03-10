@@ -35,7 +35,7 @@ function src_createButton(argument0, argument1, argument2, argument3, argument4)
 //returns the menu option that was clicked
 function src_createList(argument0, argument1, argument2, argument3) //gml_Script_src_createlist
 {
-    var selected = -4
+    var selected = noone
     var char_height = ((string_height("A") * 2) + 2)
     var rect_width = 0
     var str_width = 0
@@ -100,10 +100,18 @@ function src_selectDebugOption(argument0) //gml_Script_src_selectdebugoption
                     global.setspeed = 0
                 break
             case 5:
-                select_playerstate = (!select_playerstate)
-                statelistX = device_mouse_x_to_gui(0)
-                statelistY = device_mouse_y_to_gui(0)
+                select_savestate = (!select_savestate)
+                select_playerstate = false
+                mouseposX = device_mouse_x_to_gui(0)
+                mouseposY = device_mouse_y_to_gui(0)
                 break
+            case 6:
+                select_playerstate = (!select_playerstate)
+                select_savestate = false
+                mouseposX = device_mouse_x_to_gui(0)
+                mouseposY = device_mouse_y_to_gui(0)
+                break
+            
             default:
 
         }
@@ -118,26 +126,27 @@ function src_debugButton() //gml_Script_src_debugbutton
     var bttnx = 820
     var bttny = 20
     var bttnsize = 96
-    var options = ["Enable Pizza Time", 
-    "Show Collisions", 
-    "Enable Editor Pause and Rank Screen", 
-    "Give Supertaunt", 
-    "Set Player Speed", 
-    "Set Player State"]
-    var optioncolors = [global.doPanic, global.showcollisions, global.editorpause, global.setSupertaunt, 0, 0]
+    var clickprior = false
     //create the button itself
     select_debug = src_createButton(bttnx, bttny, bttnsize, 4198, select_debug)
     //if button is active create the dropdown menu
     if select_debug
     {
+        options = ["Enable Pizza Time", 
+        "Show Collisions", 
+        "Enable Editor Pause and Rank", 
+        "Give Supertaunt", 
+        "Set Player Speed",
+        "Open Savestate",
+        "Set Player State"]
+        var optioncolors = [global.doPanic, global.showcollisions, global.editorpause, global.setSupertaunt, 0, 0]
         //create the dropdown menu and pass on which option was selected
         var selected = src_createList(bttnx, (bttny + bttnsize), options, optioncolors)
-        src_selectDebugOption(selected)
         //select playerstate is set to true when the set player transformation option is selected
         if select_playerstate
         {
             //create transformation dropdown
-            options = ["Normal", 
+            var options = ["Normal", 
             "Knight", 
             "Ball", 
             "Firemouth", 
@@ -159,13 +168,44 @@ function src_debugButton() //gml_Script_src_debugbutton
             var transformationcolors = []
             for (var i = 0; i < array_length(options); i++)
                 array_push(transformationcolors, options[i] == global.editortransformation)
-            selected = src_createList(statelistX, statelistY, options, transformationcolors)
+            var selectedstate = src_createList(mouseposX, mouseposY, options, transformationcolors)
             //update transformation selection if an option got clicked
-            if (selected != -4)
-                global.editortransformation = options[selected]
+            if (selectedstate != noone){
+                clickprior = true
+                global.editortransformation = options[selectedstate]
+            }
+                
         }
+        //create saveslot dropdown
+        //this copy pasting amd sub menu handling is dogshit I should rework this later
+        if(select_savestate){
+            options = ["None",
+            "Slot 1",
+            "Slot 2",
+            "Slot 3",
+            "Slot 4",
+            "Slot 5",
+            "Slot 6",
+            "Slot 7",
+            "Slot 8",
+            "Slot 9",
+            "Slot 0"]
+            var saveslotcolors = []
+            for (var i = 0; i < array_length(options); i++)
+                array_push(saveslotcolors, options[i] == global.opensaveslot)
+            var selectedsave = src_createList(mouseposX, mouseposY, options, saveslotcolors)
+            if(selectedsave != noone){
+                clickprior = true
+                global.opensaveslot = options[selectedsave]
+            }
+        }
+        //the selected var gets overwritten when another dropdown menu option is clicked, this way i avoid overlap
+        if(!clickprior)
+            src_selectDebugOption(selected)
     }
     //deselect the transformation selection as well if the debug button is deselected
-    else
+    else{
         select_playerstate = 0
+        select_savestate = 0
+    }
 }

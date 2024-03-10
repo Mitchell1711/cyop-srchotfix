@@ -5,6 +5,11 @@ function doEditorDebug() //gml_Script_doEditorDebug
         global.panic = 1
         global.fill = 4000
     }
+    if (global.opensaveslot != "None")
+    {
+        saveslot = real(string_digits(global.opensaveslot))
+        loadstate()
+    }
     with (obj_player1)
     {
         global.noisejetpack = 0

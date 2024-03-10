@@ -15,7 +15,7 @@ function createsavestate() //gml_Script_createsavestate
         dontdestroyonload = true
         if (object_index != obj_editorpractice && object_index != obj_music 
         && object_index != obj_customAudio && object_index != obj_levelLoader 
-        && object_index != obj_customBG && object_index != obj_tilemapDrawer && object_index != obj_modAssets)
+        && object_index != obj_customBG && object_index != obj_tilemapDrawer && object_index != obj_modAssets){
             //retrieve the current state of all variables attached to loaded objects
             var varnames = variable_instance_get_names(id)
             var variables = array_create(array_length(varnames))
@@ -57,7 +57,7 @@ function createsavestate() //gml_Script_createsavestate
     var globals = []
     for (i = 0; i < array_length(varnames); i++)
     {
-        if (varnames[i] != "instanceManager")
+        if (varnames[i] != "instanceManager" && varnames[i] != "opensaveslot")
         {
             var value = variable_global_get(varnames[i])
             //global ds lists needs to have their contents dumped into an array
@@ -89,7 +89,8 @@ function createsavestate() //gml_Script_createsavestate
                 array_push(globals, [varnames[i], value])
         }
     }
-    savestates[saveslot] = [objects, customobjects, globals]
+    //instancemanager struct is saved as a json string so its easy to read out and assign again later
+    savestates[saveslot] = [objects, customobjects, globals, json_stringify(global.instanceManager)]
     if(saveslot < 10)
         create_transformation_tip("Saved state to slot "+string(saveslot))
     doingstatestuff = false

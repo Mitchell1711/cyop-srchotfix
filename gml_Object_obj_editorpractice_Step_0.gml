@@ -35,8 +35,9 @@ if global.triggerdebug
 if ((!doingstatestuff) && (!obj_pause.pause)){
     if loadorsave
     {
-        if savestate
+        if savestate{
             createsavestate()
+        }
         else
             loadstate()
     }

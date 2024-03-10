@@ -1,6 +1,5 @@
 function loadstate() //gml_Script_loadstate
 {
-    //retrieve globals first, important since I want to update the roomdata and currentroom to what it was during saving so I can load the right one
     var save = savestates[saveslot]
     if(array_length(save) == 0){
         if(saveslot < 10)
@@ -10,9 +9,13 @@ function loadstate() //gml_Script_loadstate
         break
     }
     doingstatestuff = true
+    //restore the instancemanager first
+    global.instanceManager = json_parse(save[3])
+    //restore globals before room reload
+    //important since I want to update the roomdata and currentroom to what it was during saving so I can load the right one
+    //also saveroom/baddieroom is checked by a bunch of objects on room load so it needs to be set before that point
     for (var i = 0; i < array_length(save[2]); i++)
     {
-        
         var glob = save[2][i]
         //this is kinda weird? it works but i might need to look at it again later
         //the if statement is supposed to check if the variable is a list or not, but putting the below code in an else caused it to not be assigned
@@ -42,7 +45,7 @@ function loadstate() //gml_Script_loadstate
     alarm[0] = 3
 }
 
-//called in this script and alarm[0]
+//called in alarm[0]
 function loadstatevariables(argument0) //gml_Script_loadstatevariables
 {
     //go over all saved objects
@@ -54,7 +57,7 @@ function loadstatevariables(argument0) //gml_Script_loadstatevariables
         if is_string(obj_id)
             obj_id = struct_get(global.instanceManager, obj_id)
         //spawn in missing objects, duplicates are prevented by only instantiating when the amount of loaded instances is lower
-        if(!instance_exists(obj_id) && instance_number(obj[1]) < obj[13]){
+        if(!instance_exists(obj_id)){
             obj_id = instance_create(obj[2], obj[3], obj[1])
         }
         //assign all saved variables to the object
