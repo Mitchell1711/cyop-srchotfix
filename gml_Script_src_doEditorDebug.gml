@@ -1,15 +1,20 @@
 function doEditorDebug() //gml_Script_doEditorDebug
 {
+    //auto savestate for the first room since the play button one doesnt work
+    alarm[1] = 3
+    //enable pizza time
     if global.doPanic
     {
         global.panic = 1
         global.fill = 4000
     }
+    //auto open savestate
     if (global.opensaveslot != "None")
     {
         saveslot = real(string_digits(global.opensaveslot))
         loadstate()
     }
+    //transformation setter
     with (obj_player1)
     {
         global.noisejetpack = 0
@@ -111,7 +116,7 @@ function doEditorDebug() //gml_Script_doEditorDebug
             default:
 
         }
-
+        //set player movespeed
         movespeed = global.setspeed
         if (movespeed < 0)
         {
