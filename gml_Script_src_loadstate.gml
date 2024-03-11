@@ -37,6 +37,10 @@ function loadstate() //gml_Script_loadstate
             }
         }
     }
+    //mark all objects as something that needs to be destroyed
+    with all{
+        dontdestroyonload = false
+    }
     //save spaceblock state since the spaceblock resets the global variable in its create code
     spaceblockstate = global.spaceblockswitch
     //(re)load the room with the reverted roomdata/currentroom
@@ -76,14 +80,18 @@ function loadstatevariables(argument0) //gml_Script_loadstatevariables
                 image_yscale = obj[10]
                 image_angle = obj[11]
                 direction = obj[12]
+                //load all variables
                 for (var j = 0; j < array_length(obj[7]); j++){
                     //don't replace the oneway block solid instance ref since it gets remade on load
                     if(obj[7][j][0] != "solid_inst"){
                         variable_instance_set(id, obj[7][j][0], obj[7][j][1])
                     }
                 }
+                //initialize alarms
                 for (j = 0; j < array_length(obj[8]); j++)
                     alarm[j] = obj[8][j]
+                //object was part of the saved objects array and has proved it shouldnt be destroyed
+                dontdestroyonload = true
             }
         }
     }

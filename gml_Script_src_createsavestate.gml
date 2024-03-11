@@ -12,7 +12,6 @@ function createsavestate() //gml_Script_createsavestate
         array_push(instmanagerids, struct_get(global.instanceManager, instmanagernames[i]))
     with (all)
     {
-        dontdestroyonload = true
         if (object_index != obj_editorpractice && object_index != obj_music 
         && object_index != obj_customAudio && object_index != obj_levelLoader 
         && object_index != obj_customBG && object_index != obj_tilemapDrawer && object_index != obj_modAssets){
