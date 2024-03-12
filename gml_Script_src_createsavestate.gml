@@ -56,7 +56,9 @@ function createsavestate() //gml_Script_createsavestate
     var globals = []
     for (i = 0; i < array_length(varnames); i++)
     {
-        if (varnames[i] != "instanceManager" && varnames[i] != "opensaveslot")
+        if (varnames[i] != "instanceManager" && varnames[i] != "opensaveslot" && varnames[i] != "doPanic" 
+        && varnames[i] != "showcollisions" && varnames[i] != "editorpause" && varnames[i] != "setSupertaunt" 
+        && varnames[i] != "editortransformation" && varnames[i] != "setspeed")
         {
             var value = variable_global_get(varnames[i])
             //global ds lists needs to have their contents dumped into an array
