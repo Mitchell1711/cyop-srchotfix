@@ -7,7 +7,7 @@ var seconds = 0
 var minutes = 0
 var s_str = ""
 var m_str = ""
-if (global.option_timer_type == 0)
+if (global.option_timer_type == 0 || global.option_timer_type == 2)
 {
     seconds = global.level_seconds
     minutes = global.level_minutes
@@ -22,8 +22,18 @@ draw_set_valign(fa_bottom)
 draw_set_font(global.smallfont)
 draw_set_alpha(1)
 draw_set_color(c_white)
+var char_height = (string_height("A") + 4)
+var str_offset = (obj_screensizer.actual_height - 8)
 var finalstr = src_create_string(seconds, minutes, 1)
-draw_text((obj_screensizer.actual_width - ((string_length(finalstr) - 1) * string_width("A"))), (obj_screensizer.actual_height - 8), finalstr)
+var str_timer_x = (obj_screensizer.actual_width - ((string_length(finalstr) - 1) * string_width("A")))
+draw_text(str_timer_x, str_offset, finalstr)
+//compatibility with both timer timer option from the most recent version
+if(global.option_timer_type == 2){
+    seconds = global.tower_seconds
+    minutes = global.tower_minutes
+    finalstr = src_create_string(seconds, minutes, 1)
+    draw_text(str_timer_x, str_offset - char_height, finalstr)
+}
 //debug information when editing a level, shows more than just a timer but I can't be bothered to put it on its own object
 if global.editingLevel
 {
@@ -36,8 +46,6 @@ if global.editingLevel
     roomsec = (roomsec % 60)
     var prev_room_time = src_create_string(roomsec, roommin, 0)
     var room_frames = string(global.prev_room_frames)
-    var char_height = (string_height("A") + 4)
-    var str_offset = (obj_screensizer.actual_height - 8)
     draw_text(8, str_offset, string(room_time))
     draw_text(8, (str_offset - char_height), concat(prev_room_time, " : ", room_frames))
     with (obj_player1)
