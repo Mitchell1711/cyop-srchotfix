@@ -1,10 +1,13 @@
 global.loadedAssets = []
-function switchAssetFolder(argument0) //gml_Script_switchAssetFolder
+//argument0 = folder to load, argument1 = force load
+function switchAssetFolder(argument0, argument1) //gml_Script_switchAssetFolder
 {
+    if(argument0 == undefined)
+        argument0 = false
     //modfolder first checks if the list of files got changed since the last load
     global.modFolder = argument0
     var checkAssets = gml_Script_find_files_recursive(mod_folder(""), "*")
-    if (checkAssets != [] && (!(array_equals(global.loadedAssets, checkAssets))))
+    if (argument1 || checkAssets != [] && (!(array_equals(global.loadedAssets, checkAssets))))
     {
         global.loadedAssets = checkAssets
         ass_unloadAssets()

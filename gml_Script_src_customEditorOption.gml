@@ -111,7 +111,10 @@ function src_selectDebugOption(argument0) //gml_Script_src_selectdebugoption
                 mouseposX = device_mouse_x_to_gui(0)
                 mouseposY = device_mouse_y_to_gui(0)
                 break
-            
+            case 7:
+                switchAssetFolder(global.modFolder, true)
+                room_goto(rmEditor)
+                break
             default:
 
         }
@@ -138,7 +141,8 @@ function src_debugButton() //gml_Script_src_debugbutton
         "Give Supertaunt", 
         "Set Player Speed",
         "Open Savestate",
-        "Set Player State"]
+        "Set Player State",
+        "Reload Asset Folder"]
         var optioncolors = [global.doPanic, global.showcollisions, global.editorpause, global.setSupertaunt, 0, 0]
         //create the dropdown menu and pass on which option was selected
         var selected = src_createList(bttnx, (bttny + bttnsize), options, optioncolors)
