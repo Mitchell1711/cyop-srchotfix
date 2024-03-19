@@ -1,9 +1,12 @@
+global.loadedAssets = []
 function switchAssetFolder(argument0) //gml_Script_switchAssetFolder
 {
-    //added if statement so that cyop doesnt unneccesarily reload the mod assets
-    if (global.modFolder != argument0)
+    //modfolder first checks if the list of files got changed since the last load
+    global.modFolder = argument0
+    var checkAssets = gml_Script_find_files_recursive(mod_folder(""), "*")
+    if (checkAssets != [] && (!(array_equals(global.loadedAssets, checkAssets))))
     {
-        global.modFolder = argument0
+        global.loadedAssets = checkAssets
         ass_unloadAssets()
         if font_exists(global.editorfont)
             font_delete(global.editorfont)
