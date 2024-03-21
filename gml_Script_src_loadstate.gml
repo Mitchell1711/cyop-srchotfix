@@ -43,6 +43,12 @@ function loadstate() //gml_Script_loadstate
     }
     //save spaceblock state since the spaceblock resets the global variable in its create code
     spaceblockstate = global.spaceblockswitch
+    //load in secret portal id
+    if(save[4] != undefined){
+        with(obj_player1){
+            secretportalID = save[4]
+        }
+    }
     //(re)load the room with the reverted roomdata/currentroom
     load_customlevel(global.roomData, global.currentRoom)
     //3 frame delay for loading objects because cyop is slow, needs 2 frames to instantiate the objects and 1 frame to instantiate hitboxes
@@ -80,6 +86,7 @@ function loadstatevariables(argument0) //gml_Script_loadstatevariables
                 image_yscale = obj[10]
                 image_angle = obj[11]
                 direction = obj[12]
+                visible = obj[13]
                 //load all variables
                 for (var j = 0; j < array_length(obj[7]); j++){
                     //don't replace the oneway block solid instance ref since it gets remade on load

@@ -8,6 +8,8 @@ function createsavestate() //gml_Script_createsavestate
     //instancemanager keeps track of the IDs of custom objects
     var instmanagernames = variable_struct_get_names(global.instanceManager)
     var instmanagerids = []
+    //fix for the secret portal crash
+    var secretportalID = noone
     for (var i = 0; i < array_length(instmanagernames); i++)
         array_push(instmanagerids, struct_get(global.instanceManager, instmanagernames[i]))
     with (all)
@@ -18,8 +20,13 @@ function createsavestate() //gml_Script_createsavestate
             //retrieve the current state of all variables attached to loaded objects
             var varnames = variable_instance_get_names(id)
             var variables = array_create(array_length(varnames))
-            for (i = 0; i < array_length(varnames); i++)
+            for (i = 0; i < array_length(varnames); i++){
+                //special handling for secretportalID to prevent a crash
+                if(varnames[i] == "secretportalID"){
+                    secretportalID = variable_instance_get(id, varnames[i])
+                }
                 variables[i] = [varnames[i], variable_instance_get(id, varnames[i])]
+            }
             //retrieve alarms as well
             var alarms = array_create(12)
             for (i = 0; i < array_length(alarms); i++)
@@ -44,7 +51,8 @@ function createsavestate() //gml_Script_createsavestate
             image_xscale, 
             image_yscale,
             image_angle,
-            direction]
+            direction,
+            visible]
             if is_string(obj_id)
                 array_push(customobjects, objectinfo)
             else
@@ -91,7 +99,7 @@ function createsavestate() //gml_Script_createsavestate
         }
     }
     //instancemanager struct is saved as a json string so its easy to read out and assign again later
-    savestates[saveslot] = [objects, customobjects, globals, json_stringify(global.instanceManager)]
+    savestates[saveslot] = [objects, customobjects, globals, json_stringify(global.instanceManager), secretportalID]
     if(saveslot < 10)
         create_transformation_tip("Saved state to slot "+string(saveslot))
     doingstatestuff = false
