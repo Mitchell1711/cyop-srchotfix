@@ -58,11 +58,22 @@ function loadstate() //gml_Script_loadstate
 //called in alarm[0]
 function loadstatevariables(argument0) //gml_Script_loadstatevariables
 {
+    var dontloadarray = savestates[saveslot][5]
     //go over all saved objects
     for (var i = 0; i < array_length(argument0); i++)
     {
         var obj = argument0[i]
         var obj_id = obj[0]
+        var dontload = false
+        //handling for onewayblock and monstergate solids, if these are added to the dontload array while saving the state they need to be skipped
+        for(var j = 0; j < array_length(dontloadarray); j++){
+            if(obj_id == dontloadarray[j]){
+                dontload = true
+                break
+            }
+        }
+        if(dontload)
+            continue
         //if object id is a string it means its a custom object from the json, I need to convert this string back to an object id by looking it up in the instancemanager
         if is_string(obj_id)
             obj_id = struct_get(global.instanceManager, obj_id)
@@ -89,8 +100,8 @@ function loadstatevariables(argument0) //gml_Script_loadstatevariables
                 visible = obj[13]
                 //load all variables
                 for (var j = 0; j < array_length(obj[7]); j++){
-                    //don't replace the oneway block solid instance ref since it gets remade on load
-                    if(obj[7][j][0] != "solid_inst"){
+                    //don't replace the oneway block and monstergate solid instance ref since it gets remade on load
+                    if(obj[7][j][0] != "solid_inst" || obj[7][j][0] != "solidID"){
                         variable_instance_set(id, obj[7][j][0], obj[7][j][1])
                     }
                 }

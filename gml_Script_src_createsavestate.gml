@@ -10,6 +10,8 @@ function createsavestate() //gml_Script_createsavestate
     var instmanagerids = []
     //fix for the secret portal crash
     var secretportalID = noone
+    //ignore saving these objects
+    var dontload = []
     for (var i = 0; i < array_length(instmanagernames); i++)
         array_push(instmanagerids, struct_get(global.instanceManager, instmanagernames[i]))
     with (all)
@@ -57,6 +59,14 @@ function createsavestate() //gml_Script_createsavestate
                 array_push(customobjects, objectinfo)
             else
                 array_push(objects, objectinfo)
+            
+            //prevent loading in the solids of the oneway block and monster gate
+            if(object_index == obj_onewaybigblock){
+                array_push(dontload, solid_inst)
+            }
+            if(object_index == obj_monstergate){
+                array_push(dontload, solidID)
+            }
         }
     }
     //get all globals, saveroom, baddieroom and escaperoom need to be tracked seperately as I want to modify them again after load
@@ -99,7 +109,7 @@ function createsavestate() //gml_Script_createsavestate
         }
     }
     //instancemanager struct is saved as a json string so its easy to read out and assign again later
-    savestates[saveslot] = [objects, customobjects, globals, json_stringify(global.instanceManager), secretportalID]
+    savestates[saveslot] = [objects, customobjects, globals, json_stringify(global.instanceManager), secretportalID, dontload]
     if(saveslot < 10)
         create_transformation_tip("Saved state to slot "+string(saveslot))
     doingstatestuff = false
